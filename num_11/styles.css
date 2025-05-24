@@ -1,0 +1,116 @@
+
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+header{
+    background-color: black;
+    padding: 1.5em;
+    text-align: center;
+}
+
+footer{
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 1em;
+}
+
+.navbar a{
+    margin: 0 1em;
+    font-size:larger;
+    color: white;
+    text-decoration: none;
+}
+
+.navbar{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1em;
+}
+
+.main-container{
+    display: flex;
+    flex: 1;
+    padding: 1em;
+    gap: 1em;
+    flex-wrap: wrap;
+}
+
+.login-panel{
+    flex: 1 1 200px;
+    max-width: 300px;
+}
+
+.info{
+    flex: 3;
+    min-width: 150px;
+}
+
+.login-form label, .login-form input, .login-form button {
+    display: block;
+    margin: 0.5em 0;
+    width: 90%;
+}
+
+.news-card{
+    border: 1px solid;
+    border-color: gray;
+    border-radius: 5px;
+    background-color: azure;
+    padding: 0.5em 2em;
+    width: 90%;
+    max-width: 1000px;
+}
+
+.news-card h1{
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.news-title{
+    text-align: center;
+}
+
+.card-container{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5em;
+    padding: 2em;
+}
+
+.card-container h1{
+    color:cornflowerblue;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    /* margin: 1em 1em; */
+  }
+
+.table-wrapper{
+    padding: 0 40px;
+}
+
+table, th, td {
+    border: 1px solid #ccc;
+    padding: 0.5em;
+    text-align: left;
+}
+
+.main-container{
+    padding: 1em;
+    display: flex;
+}
+
+
+
