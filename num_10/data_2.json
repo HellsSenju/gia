@@ -1,0 +1,38 @@
+[
+  {
+    "group_title": "group title 1",
+    "cards": [
+      {
+        "title": "First Note",
+        "content": "Content of the first note.",
+        "date": "2025-05-20"
+      },
+      {
+        "title": "Second Note",
+        "content": "Another piece of content.",
+        "date": "2025-05-21"
+      }
+    ]
+  },
+  {
+    "group_title": "group title 2",
+    "cards": [
+      {
+        "title": "Meeting Notes",
+        "content": "Discussed project deadlines.",
+        "date": "2025-05-22"
+      },
+      {
+        "title": "Review Summary",
+        "content": "Feedback on the new feature.",
+        "date": "2025-05-23",
+        "image": "image.jpg"
+      },
+      {
+        "title": "Client Call",
+        "content": "Talked about contract renewal.",
+        "date": "2025-05-24"
+      }
+    ]
+  }
+]
