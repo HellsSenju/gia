@@ -34,5 +34,21 @@
         "date": "2025-05-24"
       }
     ]
+  },
+  {
+    "group_title": "group title 3",
+    "cards": [
+      {
+        "title": "Daily Report",
+        "content": "Progress update for the team.",
+        "date": "2025-05-23"
+      },
+      {
+        "title": "Error Log",
+        "content": "Found a bug in module A.",
+        "date": "2025-05-24",
+        "image": "image.jpg"
+      }
+    ]
   }
 ]
