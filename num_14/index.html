@@ -12,12 +12,12 @@
       <div class="card">
         <form id="login-form">
           <h2>Вход в систему</h2>
-          <label for="phone">Номер телефона</label>
+          <label for="login">Логин</label>
           <input
-            type="tel"
-            id="phone"
-            name="phone"
-            placeholder="+7..."
+            type="text"
+            id="login"
+            name="login"
+            placeholder="Введите логин"
             required
           />
 
@@ -29,6 +29,11 @@
             placeholder="Введите пароль"
             required
           />
+
+          <div class="remember-me">
+            <input type="checkbox" id="remember" name="remember" />
+            <label for="remember">Запомнить меня</label>
+          </div>
 
           <button type="submit">Войти</button>
         </form>
