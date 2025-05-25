@@ -16,7 +16,9 @@ body {
 }
 
 .navbar a {
-  color: darkgreen;
+  flex: 1;
+  text-align: center;
+  color: darkblue;
   text-decoration: none;
   font-size: larger;
   padding: 1em;
