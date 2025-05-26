@@ -1,52 +1,32 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Кафедра ИС - Преподаватели</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" href="./icon.png" />
-</head>
-<body>
-  <header>
-    <nav class="navbar">
-      <a href="index.html">Главная</a>
-      <a href="teachers.html">Преподаватели</a>
-      <a href="directions.html">Направления</a>
-    </nav>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Кафедра ИС - Преподаватели</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="./icon.png" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <a href="index.html">Главная</a>
+        <a href="teachers.html">Преподаватели</a>
+        <a href="directions.html">Направления</a>
+      </nav>
+    </header>
 
-  <main>
-    <h1>Преподаватели кафедры</h1>
-    <div class="card-container" id="teacher-container">
+    <main>
+      <h1>Преподаватели кафедры</h1>
+      <div class="card-container" id="teacher-container">
         <!-- Карточки загрузятся через JavaScript -->
-    </div>
-  </main>
+      </div>
+    </main>
 
-  <footer>
-    <p>Автор работы: Цуканова И.В. | 2025</p>
-  </footer>
+    <footer>
+      <p>Автор работы: Цуканова И.В. | 2025</p>
+    </footer>
 
-  <script>
-    fetch('teachers.json')
-      .then(response => response.json())
-      .then(data => {
-        const container = document.getElementById('teacher-container');
-        data.forEach(teacher => {
-          const card = document.createElement('div');
-          card.className = 'teacher-card';
-          card.innerHTML = `
-            <img src="${teacher.photo}" alt="Фото преподавателя" />
-            <h3>${teacher.name}</h3>
-            <p>${teacher.position}</p>
-            <p>${teacher.degree}</p>
-          `;
-          container.appendChild(card);
-        });
-      })
-      .catch(error => {
-        console.error('Ошибка при загрузке данных:', error);
-      });
-  </script>
-</body>
+    <script src="teachers.js"></script>
+  </body>
 </html>
