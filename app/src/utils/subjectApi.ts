@@ -1,22 +1,24 @@
 // subjectApi.ts
 import axios from "axios";
-import type { Subject, SubjectPromise } from "./models.ts";
+import type { Subject } from "./models.ts";
 
 const API_URL = "http://localhost:3000/subjects";
 
 export const getSubjects = async (
     _page = 1,
-    _per_page = 5,
-    _sort = "title"
-): Promise<SubjectPromise> => {
-    const response = await axios.get(API_URL, {
+    _limit = 5,
+    _order = 'asc',
+    _search  = ""
+) => {
+    return await axios.get(API_URL, {
         params: {
             _page,
-            _per_page,
-            _sort,
+            _limit,
+            _sort: "title",
+            _order,
+            title_like: _search ? _search : undefined ,
         },
     });
-    return response.data;
 };
 
 export const deleteSubject = async (id: number): Promise<void> => {

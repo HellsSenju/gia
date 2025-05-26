@@ -36,5 +36,11 @@
       "email": "zaq"
     }
   ],
-  "subjects": []
+  "subjects": [
+    {
+      "title": "tes",
+      "description": "vsdfgdfgdfgdfgdf",
+      "id": 2
+    }
+  ]
 }

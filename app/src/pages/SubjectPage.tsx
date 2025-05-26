@@ -34,10 +34,10 @@ export default function SubjectPage() {
 
     const fetchSubjects = async () => {
         // Поиск можно реализовать, например, фильтром по title через q=search, если json-server поддерживает
-        getSubjects(page, PAGE_SIZE, sortAsc ? "title" : "-title")
+        getSubjects(page, PAGE_SIZE, sortAsc ? "asc":"desc", search)
             .then((resp) => {
                 setSubjects(resp.data);
-                setTotalCount(resp.items);
+                setTotalCount(parseInt(resp.headers['x-total-count'], 0));
             })
             .catch((err) => {
                 console.log(err);

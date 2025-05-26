@@ -2,7 +2,8 @@ import axios from 'axios';
 import type {Student} from "./models.ts";
 
 
-export const getStudents = async (_page = 1, _limit = 5, _order = 'asc', _search  = "") => {
+export const getStudents =
+    async (_page = 1, _limit = 5, _order = 'asc', _search  = "") => {
     return await axios.get(`http://localhost:3000/students`, {
         params: {
             _page,
