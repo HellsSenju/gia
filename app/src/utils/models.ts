@@ -4,28 +4,15 @@ export type Student = {
     email: string
 }
 
-export type StudentPromise ={
-    data: Student[],
-    first: number,
-    items: number,
-    last: number,
-    next: number,
-    pages:number,
-    prev: number | null
-}
-
 export type Subject = {
     id: number,
     title: string,
     description: string
 }
 
-export type SubjectPromise = {
-    data: Subject[];
-    first: number,
-    items: number,
-    last: number,
-    next: number,
-    pages:number,
-    prev: number | null
+export type Grade = {
+    id: number;
+    studentId: number;
+    subjectId: number;
+    value: number;
 }

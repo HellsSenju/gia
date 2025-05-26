@@ -42,5 +42,13 @@
       "description": "vsdfgdfgdfgdfgdf",
       "id": 2
     }
+  ],
+  "grades": [
+    {
+      "studentId": 2,
+      "subjectId": 2,
+      "value": 5,
+      "id": 1
+    }
   ]
 }
