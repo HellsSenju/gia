@@ -1,0 +1,40 @@
+{
+  "students": [
+    {
+      "id": 1,
+      "name": "qwe",
+      "email": "qwe"
+    },
+    {
+      "id": 2,
+      "name": "sad",
+      "email": "asd"
+    },
+    {
+      "id": 3,
+      "name": "zxc",
+      "email": "zxc"
+    },
+    {
+      "id": 4,
+      "name": "rfvrf",
+      "email": "rfv"
+    },
+    {
+      "id": 5,
+      "name": "cde",
+      "email": "xsw"
+    },
+    {
+      "id": 6,
+      "name": "xws",
+      "email": "xws"
+    },
+    {
+      "id": 7,
+      "name": "zaq",
+      "email": "zaq"
+    }
+  ],
+  "subjects": []
+}
