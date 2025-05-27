@@ -1,18 +1,16 @@
-export type Student = {
-    id: number
-    name: string
-    email: string
-}
+export type Contact = {
+  id: number;
+  name: string;
+  phone: string;
+};
 
-export type Subject = {
-    id: number,
-    title: string,
-    description: string
-}
+export type Group = {
+  id: number;
+  name: string;
+};
 
-export type Grade = {
-    id: number;
-    studentId: number;
-    subjectId: number;
-    value: number;
-}
+export type ContactGroup = {
+  id: number;
+  contactId: number;
+  groupId: number;
+};

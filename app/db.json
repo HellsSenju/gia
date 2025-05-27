@@ -1,0 +1,31 @@
+{
+  "contacts": [
+    {
+      "name": "dsfsdsdsdf",
+      "phone": "89626334992",
+      "id": 2
+    }
+  ],
+  "groups": [
+    {
+      "name": "group 1",
+      "id": 1
+    },
+    {
+      "name": "sadssdsasda",
+      "id": 2
+    }
+  ],
+  "contactGroup": [
+    {
+      "contactId": 2,
+      "groupId": 1,
+      "id": 1
+    },
+    {
+      "contactId": 2,
+      "groupId": 2,
+      "id": 2
+    }
+  ]
+}

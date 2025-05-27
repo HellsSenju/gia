@@ -1,25 +1,32 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import StudentPage from "./pages/StudentPage.tsx";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import SubjectPage from "./pages/SubjectPage.tsx";
-import {GradesPage} from "./pages/GradesPage.tsx";
+import "bootstrap/dist/css/bootstrap.min.css";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Navbar from "./components/Navbar.tsx";
+import ContactsPage from "./pages/ContactPage.tsx";
+import GroupsPage from "./pages/GroupsPage.tsx";
+import AssignContactsToGroupsPage from "./pages/ContactsToGroupsPage.tsx";
 
 function App() {
-
   return (
-      <Router>
-        <Navbar />
-        <div className="container mt-4">
-          <Routes>
-            <Route path="/" element={<Navigate to="/students" />} />
-            <Route path="/students" element={<StudentPage />} />
-            <Route path="/subjects" element={<SubjectPage />} />
-            <Route path="/grades" element={<GradesPage />} />
-          </Routes>
-        </div>
-      </Router>
-  )
+    <Router>
+      <Navbar />
+      <div className="container mt-4">
+        <Routes>
+          <Route path="/" element={<Navigate to="/students" />} />
+          <Route path="/contacts" element={<ContactsPage />} />
+          <Route path="/groups" element={<GroupsPage />} />
+          <Route
+            path="/contactsGroups"
+            element={<AssignContactsToGroupsPage />}
+          />
+        </Routes>
+      </div>
+    </Router>
+  );
 }
 
-export default App
+export default App;

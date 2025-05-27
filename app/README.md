@@ -1,8 +1,5 @@
-npm install react-router-dom
-
-
-npm install -g json-server@0.17.0
-
-npm install axios
-
-npm install react-bootstrap bootstrap
+1. Лучше открыть терминал не через визуал код, а через проводник. открыть надо именно по пути app, терминал внутри этой папки
+2. сначала делаешь npm install
+3. потом npm install -g json-server@0.17.0
+4. запускаешь сервер json-server --watch db.json --port 3000
+5. запускаешь приложение npm run dev
