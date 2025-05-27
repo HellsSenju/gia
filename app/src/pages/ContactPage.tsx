@@ -12,6 +12,8 @@ import {
 import type { Contact } from "../utils/models.ts";
 import axios from "axios";
 
+const token = localStorage.getItem("accessToken");
+
 export default function ContactsPage() {
   const [contacts, setContacts] = useState<Contact[]>([]);
 
@@ -20,7 +22,11 @@ export default function ContactsPage() {
 
   const fetchContacts = async () => {
     try {
-      const resp = await axios.get("http://localhost:3000/contacts");
+      const resp = await axios.get("http://localhost:3000/contacts", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setContacts(resp.data);
     } catch (err) {
       console.error(err);
@@ -33,7 +39,11 @@ export default function ContactsPage() {
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:3000/contacts/${id}`);
+      await axios.delete(`http://localhost:3000/contacts/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       fetchContacts();
     } catch (err) {
       console.error(err);
@@ -43,6 +53,16 @@ export default function ContactsPage() {
   const handleSave = async () => {
     if (!editingContact) return;
 
+    const trimmedName = editingContact.name.trim();
+    const trimmedPhone = editingContact.phone.trim();
+
+    if (!trimmedName || !trimmedPhone) {
+      alert(
+        "Поля 'Имя' и 'Телефон' не должны быть пустыми или содержать только пробелы."
+      );
+      return;
+    }
+
     try {
       if (editingContact.id) {
         await axios.patch(
@@ -50,13 +70,26 @@ export default function ContactsPage() {
           {
             name: editingContact.name,
             phone: editingContact.phone,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
         );
       } else {
-        await axios.post("http://localhost:3000/contacts", {
-          name: editingContact.name,
-          phone: editingContact.phone,
-        });
+        await axios.post(
+          "http://localhost:3000/contacts",
+          {
+            name: editingContact.name,
+            phone: editingContact.phone,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
       }
 
       setShowModal(false);

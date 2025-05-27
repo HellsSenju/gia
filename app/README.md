@@ -3,3 +3,9 @@
 3. потом npm install -g json-server@0.17.0
 4. запускаешь сервер json-server --watch db.json --port 3000
 5. запускаешь приложение npm run dev
+
+npm install json-server@0.17.0 json-server-auth
+
+npm install -g json-server@0.17.0 json-server-auth
+
+npm uninstall -g json-server

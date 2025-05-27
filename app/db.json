@@ -1,9 +1,21 @@
 {
+  "users": [
+    {
+      "email": "admin@admin.com",
+      "password": "123456",
+      "id": 1
+    }
+  ],
   "contacts": [
     {
       "name": "dsfsdsdsdf",
       "phone": "89626334992",
       "id": 2
+    },
+    {
+      "name": "КВ",
+      "phone": "89626334992",
+      "id": 3
     }
   ],
   "groups": [

@@ -12,6 +12,8 @@ import axios from "axios";
 
 import type { Group } from "../utils/models.ts";
 
+const token = localStorage.getItem("accessToken");
+
 export default function GroupsPage() {
   const [groups, setGroups] = useState<Group[]>([]);
   const [showModal, setShowModal] = useState(false);

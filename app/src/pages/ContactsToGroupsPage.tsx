@@ -12,6 +12,8 @@ import axios from "axios";
 
 import type { Contact, ContactGroup, Group } from "../utils/models";
 
+const token = localStorage.getItem("accessToken");
+
 export default function AssignContactsToGroupsPage() {
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [groups, setGroups] = useState<Group[]>([]);
