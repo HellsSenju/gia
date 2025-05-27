@@ -1,0 +1,212 @@
+отладка -  свойства отладки - с/с++ - дополнительно - компилировать как С код - язык - стандарт языка С - по умолчанию устаревший мсвс - ок
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <locale.h>
+
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+typedef struct Reader {
+    int id;
+    char surname[50];
+    char name[50];
+    char patronymic[50];
+    char street[100];
+
+    struct Reader* prev;
+    struct Reader* next;
+} Reader;
+
+Reader* head = NULL;
+
+// Проверка на уникальность номера билета
+int readerExists(int id) {
+    Reader* current = head;
+    while (current) {
+        if (current->id == id) {
+            return 1; // найден
+        }
+        current = current->next;
+    }
+    return 0;
+}
+
+// Создание нового читателя
+Reader* createReader(int id, const char* surname, const char* name, const char* patronymic, const char* street) {
+    Reader* newReader = (Reader*)malloc(sizeof(Reader));
+    if (!newReader) {
+        printf("Ошибка выделения памяти.\n");
+        exit(1);
+    }
+
+    strncpy_s(newReader->surname, sizeof(newReader->surname), surname, _TRUNCATE);
+    strncpy_s(newReader->name, sizeof(newReader->name), name, _TRUNCATE);
+    strncpy_s(newReader->patronymic, sizeof(newReader->patronymic), patronymic, _TRUNCATE);
+    strncpy_s(newReader->street, sizeof(newReader->street), street, _TRUNCATE);
+    newReader->id = id;
+    newReader->prev = NULL;
+    newReader->next = NULL;
+    return newReader;
+}
+
+// Добавление с сортировкой по ID
+void addReader(int id, const char* surname, const char* name, const char* patronymic, const char* street) {
+    if (readerExists(id)) {
+        printf("Ошибка: читатель с билетом №%d уже существует.\n", id);
+        return;
+    }
+
+    Reader* newReader = createReader(id, surname, name, patronymic, street);
+
+    if (!head) {
+        head = newReader;
+        return;
+    }
+
+    Reader* current = head;
+    Reader* prev = NULL;
+
+    while (current && current->id < id) {
+        prev = current;
+        current = current->next;
+    }
+
+    if (!prev) {
+        newReader->next = head;
+        head->prev = newReader;
+        head = newReader;
+    }
+    else {
+        newReader->next = current;
+        newReader->prev = prev;
+        prev->next = newReader;
+        if (current) {
+            current->prev = newReader;
+        }
+    }
+}
+
+// Ввод одного читателя
+void inputReader() {
+    char buffer[256];
+    int id;
+    char surname[50], name[50], patronymic[50], street[100];
+
+    printf("\nВведите номер билета: ");
+    if (fgets(buffer, sizeof(buffer), stdin) != NULL) {
+        char* endptr;
+        id = (int)strtol(buffer, &endptr, 10);
+        if (*endptr != '\0' && *endptr != '\n') {
+            printf("Ошибка: введите корректное число.\n");
+            return;
+        }
+    }
+    else {
+        printf("Ошибка ввода.\n");
+        return;
+    }
+
+    printf("Введите фамилию: ");
+    if (fgets(surname, sizeof(surname), stdin) == NULL) return;
+    surname[strcspn(surname, "\n")] = '\0';
+
+    printf("Введите имя: ");
+    if (fgets(name, sizeof(name), stdin) == NULL) return;
+    name[strcspn(name, "\n")] = '\0';
+
+    printf("Введите отчество: ");
+    if (fgets(patronymic, sizeof(patronymic), stdin) == NULL) return;
+    patronymic[strcspn(patronymic, "\n")] = '\0';
+
+    printf("Введите улицу: ");
+    if (fgets(street, sizeof(street), stdin) == NULL) return;
+    street[strcspn(street, "\n")] = '\0';
+
+    addReader(id, surname, name, patronymic, street);
+}
+
+// Вывод всех читателей
+void printReaders() {
+    if (!head) {
+        printf("\nСписок пуст.\n");
+        return;
+    }
+
+    Reader* current = head;
+    printf("\nСписок читателей:\n");
+    while (current) {
+        printf("Билет N %d: %s %s %s, ул. %s\n",
+            current->id,
+            current->surname,
+            current->name,
+            current->patronymic,
+            current->street);
+        current = current->next;
+    }
+}
+
+// Очистка памяти
+void freeList() {
+    Reader* current = head;
+    while (current) {
+        Reader* temp = current;
+        current = current->next;
+        free(temp);
+    }
+}
+
+// Меню
+void menu() {
+    char buffer[16];
+    int choice = -1;
+
+    addReader(102, "Иванов", "Иван", "Иванович", "Ленина");
+    addReader(101, "Петров", "Петр", "Петрович", "Кирова");
+    addReader(105, "Сидоров", "Сидор", "Сидорович", "Советская");
+
+    do {
+        printf("\nМеню:\n");
+        printf("1. Добавить читателя\n");
+        printf("2. Показать список\n");
+        printf("0. Выход\n");
+        printf("Выберите пункт: ");
+
+        if (fgets(buffer, sizeof(buffer), stdin) != NULL) {
+            char* endptr;
+            choice = (int)strtol(buffer, &endptr, 10);
+        }
+        else {
+            choice = -1;
+        }
+
+        switch (choice) {
+        case 1:
+            inputReader();
+            break;
+        case 2:
+            printReaders();
+            break;
+        case 0:
+            break;
+        default:
+            printf("Неверный выбор!\n");
+        }
+    } while (choice != 0);
+}
+
+// Точка входа
+int main() {
+    setlocale(LC_ALL, "Russian");
+
+#ifdef _WIN32
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+#endif
+
+    menu();
+    freeList();
+    return 0;
+}
