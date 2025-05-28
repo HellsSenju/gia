@@ -1,0 +1,93 @@
+//кольцевой - как односвязный, только последний элемент указывает на первый. Каждый эл рассматривается как первый
+
+#include <iostream>
+#include <locale> // Для setlocale
+
+using namespace std;
+
+// Структура узла списка
+struct Node {
+    int data;
+    Node* next;
+};
+
+// Добавление элемента с упорядочиванием (по возрастанию)
+void insert(Node*& tail, int value) {
+    Node* newNode = new Node{ value, nullptr };
+
+    if (!tail) {
+        // Пустой список
+        newNode->next = newNode;
+        tail = newNode;
+        return;
+    }
+
+    Node* curr = tail->next;
+    Node* prev = tail;
+
+    // Поиск позиции для вставки
+    do {
+        if (value < curr->data)
+            break;
+        prev = curr;
+        curr = curr->next;
+    } while (curr != tail->next);
+
+    // Вставка нового узла
+    newNode->next = curr;
+    prev->next = newNode;
+
+    // Обновить tail, если вставка в конец
+    if (prev == tail && value >= tail->data) {
+        tail = newNode;
+    }
+}
+
+// Вывод списка
+void display(Node* tail) {
+    if (!tail) {
+        cout << "Список пуст." << endl;
+        return;
+    }
+
+    Node* curr = tail->next;
+    do {
+        cout << curr->data << " ";
+        curr = curr->next;
+    } while (curr != tail->next);
+    cout << endl;
+}
+
+// Очистка памяти
+void clear(Node*& tail) {
+    if (!tail) return;
+
+    Node* curr = tail->next;
+    tail->next = nullptr;
+
+    while (curr) {
+        Node* temp = curr;
+        curr = curr->next;
+        delete temp;
+    }
+    tail = nullptr;
+}
+
+int main() {
+    setlocale(LC_ALL, "Russian"); // Русская локализация
+
+    Node* tail = nullptr;
+
+    insert(tail, 10);
+    insert(tail, 5);
+    insert(tail, 15);
+    insert(tail, 7);
+    insert(tail, 12);
+
+    cout << "Кольцевой список: ";
+    display(tail);
+
+    clear(tail); // Освобождение памяти
+
+    return 0;
+}

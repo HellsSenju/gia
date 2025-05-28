@@ -1,0 +1,173 @@
+#include <iostream>
+#include <queue>
+#include <locale> // Для setlocale
+
+using namespace std;
+
+template<typename T>
+struct BinaryTreeNode {
+    T data;
+    BinaryTreeNode<T>* left;
+    BinaryTreeNode<T>* right;
+    bool visited = false;
+
+    explicit BinaryTreeNode(T data) {
+        this->data = data;
+        this->left = nullptr;
+        this->right = nullptr;
+    }
+};
+
+template<typename T>
+struct BinaryTree {
+    BinaryTreeNode<T>* root;
+    int count;
+
+    BinaryTree() {
+        root = nullptr;
+        count = 0;
+    }
+
+    void insert(T data) {
+        if (root == nullptr) {
+            root = new BinaryTreeNode<T>(data);
+            count++;
+            return;
+        }
+
+        BinaryTreeNode<T>* current = root;
+        while (current != nullptr) {
+            if (data < current->data) {
+                if (current->left == nullptr) {
+                    current->left = new BinaryTreeNode<T>(data);
+                    count++;
+                    return;
+                }
+                current = current->left;
+            }
+            else {
+                if (current->right == nullptr) {
+                    current->right = new BinaryTreeNode<T>(data);
+                    count++;
+                    return;
+                }
+                current = current->right;
+            }
+        }
+    }
+
+    BinaryTreeNode<T>* findMin(BinaryTreeNode<T>* node) {
+        while (node->left != nullptr) {
+            node = node->left;
+        }
+        return node;
+    }
+
+    BinaryTreeNode<T>* deleteData(BinaryTreeNode<T>* root, T data) {
+        if (!root) return nullptr;
+
+        if (data < root->data)
+            root->left = deleteData(root->left, data);
+        else if (data > root->data)
+            root->right = deleteData(root->right, data);
+        else {
+            count--; // уменьшаем количество элементов
+            if (!root->left && !root->right) {
+                delete root;
+                return nullptr;
+            }
+            if (!root->left) {
+                BinaryTreeNode<T>* temp = root->right;
+                delete root;
+                return temp;
+            }
+            if (!root->right) {
+                BinaryTreeNode<T>* temp = root->left;
+                delete root;
+                return temp;
+            }
+            BinaryTreeNode<T>* temp = findMin(root->right);
+            root->data = temp->data;
+            root->right = deleteData(root->right, temp->data);
+        }
+        return root;
+    }
+
+    void removeNode(T data) {
+        root = deleteData(root, data); // важно присваивать обратно, т.к. root может измениться
+    }
+
+    void print_bfs() {
+        if (!root) return;
+
+        queue<BinaryTreeNode<T>*> q;
+        q.push(root);
+        root->visited = true;
+
+        while (!q.empty()) {
+            BinaryTreeNode<T>* node = q.front();
+            q.pop();
+
+            cout << node->data << " ";
+
+            if (node->left && !node->left->visited) {
+                q.push(node->left);
+                node->left->visited = true;
+            }
+            if (node->right && !node->right->visited) {
+                q.push(node->right);
+                node->right->visited = true;
+            }
+        }
+
+        cout << endl;
+
+        // Сброс флага visited
+        resetVisited(root);
+    }
+
+    void resetVisited(BinaryTreeNode<T>* node) {
+        if (!node) return;
+        node->visited = false;
+        resetVisited(node->left);
+        resetVisited(node->right);
+    }
+
+    void print_inorder_recursive(BinaryTreeNode<T>* root) {
+        if (!root) return;
+        print_inorder_recursive(root->left);
+        cout << root->data << " ";
+        print_inorder_recursive(root->right);
+    }
+
+    void print() {
+        print_inorder_recursive(root);
+        cout << endl;
+    }
+};
+
+int main() {
+    setlocale(LC_ALL, "Russian"); // Русская локализация
+    BinaryTree<int> tree;
+
+    tree.insert(10);
+    tree.insert(20);
+    tree.insert(30);
+    tree.insert(40);
+    tree.insert(5);
+    tree.insert(15);
+    tree.insert(30); // допустим дубликаты
+
+    cout << "In-order (слева направо): ";
+    tree.print();
+
+    cout << "Обход в ширину (BFS): ";
+    tree.print_bfs();
+
+    tree.removeNode(10); // удалим корень
+
+    cout << "После удаления 10: ";
+    tree.print();
+
+    return 0;
+}

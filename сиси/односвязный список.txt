@@ -1,0 +1,46 @@
+#include <iostream>
+
+using namespace std;
+
+struct Node {
+    int data;
+    Node* next;
+
+    explicit Node(const int data) {
+        this->data = data;
+        this->next = nullptr;
+    }
+};
+
+Node* root = nullptr;
+
+void insert(int data) {
+    if (root == nullptr) {
+        root = new Node(data);
+        return;
+    }
+
+    Node* temp = root;
+    while (temp->next != nullptr) {
+        temp = temp->next;
+    }
+    temp->next = new Node(data);
+}
+
+void print() {
+    const Node* temp = root;
+    while (temp != nullptr) {
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+}
+
+int main() {
+    for (int i = 1; i <= 10; i++) {
+        insert(i);
+    }
+
+    print();
+
+    return 0;
+}

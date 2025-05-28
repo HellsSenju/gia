@@ -1,0 +1,106 @@
+#include <iostream>
+
+using namespace std;
+
+template<typename T>
+struct Node {
+    Node<T>* next;
+    Node<T>* prev;
+    T data;
+
+    Node(T data, Node<T>* next, Node<T>* prev) {
+        this->data = data;
+        this->next = next;
+        this->prev = prev;
+    }
+};
+
+template<typename T>
+struct List {
+    Node<T>* root = nullptr;
+    Node<T>* last = nullptr;
+    int length = 0;
+
+    void insert(T data) {
+        if (root == nullptr) {
+            root = new Node<T>(data, nullptr, nullptr);
+            last = root;
+            return;
+        }
+
+        Node<T>* temp = root;
+        while (temp->next != nullptr) {
+            temp = temp->next;
+        }
+
+        temp->next = new Node<T>(data, nullptr, temp);
+        last = temp->next;
+        length++;
+    }
+
+    void insertMiddleBack(T data) {
+        Node<T>* temp = last;
+        const int mid = length / 2;
+
+        for (int i = 0; i < mid; i++) {
+            temp = temp->prev;
+        }
+
+        auto* newNode = new Node<T>(data, temp, temp->prev);
+        temp->prev->next = newNode;
+        temp->prev = newNode;
+    }
+
+    void insertMiddleFront(T data) {
+        Node<T>* temp = root;
+        const int mid = length / 2;
+
+        for (int i = 0; i < mid; i++) {
+            temp = temp->prev;
+        }
+
+        auto* newNode = new Node<T>(data, temp, temp->prev);
+        temp->prev->next = newNode;
+        temp->prev = newNode;
+    }
+
+    void insertMiddle(T data) {
+        if (root == nullptr) {
+            insert(data);
+            return;
+        }
+
+        const int middle = length / 2;
+        if (middle > length / 2) {
+            insertMiddleBack(data);
+        }
+        else {
+            insertMiddleFront(data);
+        }
+    }
+
+    void print() {
+        Node<T>* temp = root;
+        while (temp->next != nullptr) {
+            cout << temp->data << " ";
+            temp = temp->next;
+        }
+        cout << endl;
+    }
+};
+
+
+int main() {
+    List<int> list;
+
+    for (int i = 1; i <= 11; i++) {
+        list.insert(i);
+    }
+
+    list.print();
+
+    list.insertMiddleBack(10);
+    list.print();
+
+    return 0;
+}

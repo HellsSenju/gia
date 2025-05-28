@@ -1,0 +1,65 @@
+//категория врача Category.cs
+
+using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
+
+namespace gosi1
+{
+    [DataContract]
+    public class Category
+    {
+        [Key]
+        [DataMember]
+        public int Id { get; set; }
+        [Required]
+        [DataMember]
+        public string Name { get; set; } = string.Empty;
+        [Required]
+        [DataMember]
+        public string Description { get; set; } = string.Empty;
+    }
+}
+
+//врачи Doctors.cs
+
+using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
+
+namespace gosi1
+{
+    [Serializable]
+    [DataContract]
+    public class Doctor
+    {
+        [Key]
+        [DataMember]
+        public int Id { get; set; }
+        [DataMember]
+        [Required]
+        public string Name { get; set; } = string.Empty;
+        [DataMember]
+        [Required]
+        public string Sername { get; set; } = string.Empty;
+        [DataMember]
+        [Required]
+        public string Specialization { get; set; }
+        [DataMember]
+        [Required]
+        public int Experience { get; set; } //cтаж
+        [DataMember]
+        [Required]
+        public Category Category { get; set; } = new();
+
+        public static Doctor Create(int id, string name, string sername, string specialization, int experience)
+        {
+            return new Film
+            {
+                Id = id,
+                Name = name,
+                Sername = sername,
+                Specialization = specialization,
+                Experience = experience
+            };
+        }
+    }
+}

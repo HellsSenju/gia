@@ -1,0 +1,86 @@
+Реализация графа через списки смежности — это способ представить граф, в котором для каждой вершины хранится список её соседей (то есть, вершин, с которыми она соединена ребром). + обход в ширину
+
+
+
+using System;
+using System.Collections.Generic;
+
+class Graph
+{
+    private int vertices;                     // количество вершин
+    private List<int>[] adjList;              // список смежности
+    private Random rand = new Random();
+
+    public Graph(int v)
+    {
+        vertices = v;
+        adjList = new List<int>[v];
+        for (int i = 0; i < v; i++)
+            adjList[i] = new List<int>();
+
+        GenerateRandomEdges();
+    }
+
+    private void GenerateRandomEdges()
+    {
+        // Создаём случайные рёбра
+        for (int i = 0; i < vertices; i++)
+        {
+            int edges = rand.Next(1, vertices); // количество рёбер у вершины
+            for (int j = 0; j < edges; j++)
+            {
+                int neighbor = rand.Next(vertices);
+                if (neighbor != i && !adjList[i].Contains(neighbor))
+                    adjList[i].Add(neighbor);
+            }
+        }
+    }
+
+    public void PrintGraph()
+    {
+        Console.WriteLine("Список смежности графа:");
+        for (int i = 0; i < vertices; i++)
+        {
+            Console.Write(i + ": ");
+            foreach (int neighbor in adjList[i])
+                Console.Write(neighbor + " ");
+            Console.WriteLine();
+        }
+    }
+
+    public void BFS(int start)
+    {
+        Console.WriteLine("\nОбход в ширину от вершины " + start + ":");
+        bool[] visited = new bool[vertices];
+        Queue<int> queue = new Queue<int>();
+
+        visited[start] = true;
+        queue.Enqueue(start);
+
+        while (queue.Count > 0)
+        {
+            int current = queue.Dequeue();
+            Console.Write(current + " ");
+
+            foreach (int neighbor in adjList[current])
+            {
+                if (!visited[neighbor])
+                {
+                    visited[neighbor] = true;
+                    queue.Enqueue(neighbor);
+                }
+            }
+        }
+        Console.WriteLine();
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Graph g = new Graph(6);  // создаем граф из 6 вершин
+        g.PrintGraph();          // выводим список смежности
+        g.BFS(0);                // обход в ширину начиная с вершины 0
+    }
+}

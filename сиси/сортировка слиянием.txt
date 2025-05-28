@@ -1,0 +1,87 @@
+#include <iostream>
+
+using namespace std;
+
+struct IntArray {
+    int* data;
+    int size;
+
+    IntArray(int size) {
+        this->size = size;
+        data = new int[size];
+    }
+
+    ~IntArray() {
+        delete[] data;
+    }
+
+    void print() const {
+        for (int i = 0; i < size; ++i) {
+            cout << data[i] << " ";
+        }
+        cout << endl;
+    }
+};
+
+// Сортировка слиянием
+void merge_sort(int* arr, int left, int right) {
+    if (left >= right) return;
+
+    int mid = (left + right) / 2;
+    merge_sort(arr, left, mid);
+    merge_sort(arr, mid + 1, right);
+
+    int size = right - left + 1;
+    int* temp = new int[size];
+
+    int i = left;       // указатель левой части
+    int j = mid + 1;    // указатель правой части
+    int k = 0;          // указатель temp-массива
+
+    // Слияние двух отсортированных частей
+    while (i <= mid && j <= right) {
+        if (arr[i] <= arr[j]) {
+            temp[k++] = arr[i++];
+        }
+        else {
+            temp[k++] = arr[j++];
+        }
+    }
+
+    // Остатки левой части
+    while (i <= mid) {
+        temp[k++] = arr[i++];
+    }
+
+    // Остатки правой части
+    while (j <= right) {
+        temp[k++] = arr[j++];
+    }
+
+    // Копируем обратно в исходный массив
+    for (int m = 0; m < size; ++m) {
+        arr[left + m] = temp[m];
+    }
+
+    delete[] temp;
+}
+
+int main() {
+    IntArray array(11);
+    int initial[] = { 1, 10, 5, 9, 2, 8, 3, 7, 6, 4, 0 };
+
+    // Копируем значения
+    for (int i = 0; i < 11; ++i) {
+        array.data[i] = initial[i];
+    }
+
+    cout << "before: ";
+    array.print();
+
+    merge_sort(array.data, 0, array.size - 1);
+
+    cout << "after: ";
+    array.print();
+
+    return 0;
+}

@@ -1,0 +1,31 @@
+Сериализация 
+XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Film>));
+using FileStream fs = new(openFileDialog.FileName, FileMode.OpenOrCreate);
+xmlSerializer.Serialize(fs, _films);
+
+using StreamWriter sr = new(openFileDialog.FileName);
+string json = JsonSerializer.Serialize(_films);
+sr.WriteLine(json);
+
+Де
+XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Film>));
+using FileStream fs = new(openFileDialog.FileName, FileMode.Open);
+
+if (xmlSerializer.Deserialize(fs) is not List<Film> films)
+{
+    return;
+}
+
+using StreamReader sr = new(openFileDialog.FileName);
+string? json = sr.ReadLine();
+
+if (json == null)
+{
+    return;
+}
+
+List<Film>? jsonFilms = JsonSerializer.Deserialize<List<Film>>(json);
+if (jsonFilms == null)
+{
+    return;
+}
