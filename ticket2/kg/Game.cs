@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ticket2.kg
 {
@@ -16,9 +17,12 @@ namespace ticket2.kg
 
         [Required]
         public int Year { get; set; }
+        
+        public int DevStudioId { get; set; }
 
         [Required]
-        public DevStudio DevStudio { get; set; } = new();
+        [ForeignKey("DevStudioId")]
+        public DevStudio DevStudio { get; set; }
 
         public static Game Create(int id, string name, string genre, int year)
         {

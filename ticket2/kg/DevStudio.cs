@@ -14,6 +14,9 @@ namespace ticket2.kg
         [Key]
         public int Id { get; set; }
 
+        [Required]
         public string Name { get; set; } = string.Empty;
+
+        public List<Game> Games { get; set; } = []; // Навигационное свойство: один ко многим
     }
 }
